@@ -8,6 +8,6 @@ namespace Data.Interfaces
     {
         Task<TransactionResult> DepositAsync(CreateDepositDTO dto);
         Task<TransactionResult> WithdrawAsync(CreateWithdrawDTO dto);
-        Task<TransactionResult> TransactionAsync(CreateTransferDTO dto);
+        Task<TransactionResult> TransferAsync(CreateTransferDTO dto);
     }
 }

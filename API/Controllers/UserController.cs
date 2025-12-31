@@ -40,7 +40,9 @@ namespace API
             return Ok(new
             {
                 UserId = User.FindFirst(ClaimTypes.NameIdentifier)?.Value,
+                Name = User.FindFirst(ClaimTypes.Name)?.Value,
                 Email = User.FindFirst(ClaimTypes.Email)?.Value
+                
             });
         }
 

@@ -100,7 +100,7 @@ namespace Data.Repositories
                 return new TransactionResult(false, ex.Message);
             }
         }
-        public async Task<TransactionResult> TransactionAsync(CreateTransferDTO dto)
+        public async Task<TransactionResult> TransferAsync(CreateTransferDTO dto)
         {
             using var transaction = await _context.Database.BeginTransactionAsync();
 

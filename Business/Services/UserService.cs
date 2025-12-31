@@ -22,6 +22,8 @@ namespace Business
 
             var user = new UserEntity
             {
+                Firstname = userDto.FirstName,
+                Lastname = userDto.LastName,
                 Email = userDto.Email,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(userDto.Password)
             };
