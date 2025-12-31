@@ -11,10 +11,11 @@ namespace Data
         public DbSet<UserEntity> Users { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
+            base.OnModelCreating(modelBuilder);
+
             modelBuilder.Entity<UserEntity>(entity =>
             {
                 entity.HasKey(u => u.Id);
-
 
                 entity.Property(u => u.Email).IsRequired().HasMaxLength(128);
 
@@ -29,9 +30,9 @@ namespace Data
 
                 entity.Property(t => t.Amount).HasColumnType("decimal(18,2)").IsRequired();
 
-                entity.HasOne(t => t.SenderUser).WithMany().HasForeignKey(t => t.SenderID).OnDelete(DeleteBehavior.Restrict);
+                entity.HasOne(t => t.SenderUser).WithMany(u => u.SentTransactions).HasForeignKey(t => t.SenderID).OnDelete(DeleteBehavior.Restrict);
 
-                entity.HasOne(t => t.ReceiverUser).WithMany().HasForeignKey(t => t.ReceiverID).OnDelete(DeleteBehavior.Restrict);
+                entity.HasOne(t => t.ReceiverUser).WithMany(u => u.ReceivedTransactions).HasForeignKey(t => t.ReceiverID).OnDelete(DeleteBehavior.Restrict);
 
             });
             

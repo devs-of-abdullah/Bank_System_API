@@ -40,8 +40,7 @@ namespace Data.Migrations
                     Amount = table.Column<decimal>(type: "decimal(18,2)", nullable: false),
                     Type = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     Description = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false),
-                    UserEntityId = table.Column<int>(type: "int", nullable: true)
+                    CreatedAt = table.Column<DateTime>(type: "datetime2", nullable: false)
                 },
                 constraints: table =>
                 {
@@ -58,11 +57,6 @@ namespace Data.Migrations
                         principalTable: "Users",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Restrict);
-                    table.ForeignKey(
-                        name: "FK_Transactions_Users_UserEntityId",
-                        column: x => x.UserEntityId,
-                        principalTable: "Users",
-                        principalColumn: "Id");
                 });
 
             migrationBuilder.CreateIndex(
@@ -74,11 +68,6 @@ namespace Data.Migrations
                 name: "IX_Transactions_SenderID",
                 table: "Transactions",
                 column: "SenderID");
-
-            migrationBuilder.CreateIndex(
-                name: "IX_Transactions_UserEntityId",
-                table: "Transactions",
-                column: "UserEntityId");
 
             migrationBuilder.CreateIndex(
                 name: "IX_Users_Email",

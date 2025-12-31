@@ -14,17 +14,17 @@ namespace Business.Services
         { 
             _repo = repo;
         }
-        public async Task<TransactionResult> WithdrawAsync(CreateWithdrawDTO dto)
+        public async Task<TransactionResult> WithdrawAsync(int currentId, CreateWithdrawDTO dto)
         {
-            return await _repo.WithdrawAsync(dto);
+            return await _repo.WithdrawAsync(currentId,dto);
         }
-        public async Task<TransactionResult> DepositAsync(CreateDepositDTO dto)
+        public async Task<TransactionResult> DepositAsync(int currentId,CreateDepositDTO dto)
         {
-            return await _repo.DepositAsync(dto);
+            return await _repo.DepositAsync(currentId, dto);
         }
-        public async Task<TransactionResult> TransferAsync(CreateTransferDTO dto)
+        public async Task<TransactionResult> TransferAsync(int currentId, CreateTransferDTO dto)
         {
-            return await _repo.TransferAsync(dto);
+            return await _repo.TransferAsync(currentId,dto);
         }
       
     }

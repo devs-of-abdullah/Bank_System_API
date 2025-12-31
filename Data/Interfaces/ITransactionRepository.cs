@@ -6,8 +6,8 @@ namespace Data.Interfaces
 {
     public interface ITransactionRepository
     {
-        Task<TransactionResult> DepositAsync(CreateDepositDTO dto);
-        Task<TransactionResult> WithdrawAsync(CreateWithdrawDTO dto);
-        Task<TransactionResult> TransferAsync(CreateTransferDTO dto);
+        Task<TransactionResult> DepositAsync(int currentId,CreateDepositDTO dto);
+        Task<TransactionResult> WithdrawAsync(int currentId,CreateWithdrawDTO dto);
+        Task<TransactionResult> TransferAsync(int currentId,CreateTransferDTO dto);
     }
 }

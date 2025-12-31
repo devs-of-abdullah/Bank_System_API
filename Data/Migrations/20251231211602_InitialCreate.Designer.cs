@@ -12,7 +12,7 @@ using Microsoft.EntityFrameworkCore.Storage.ValueConversion;
 namespace Data.Migrations
 {
     [DbContext(typeof(AppDbContext))]
-    [Migration("20251231201643_InitialCreate")]
+    [Migration("20251231211602_InitialCreate")]
     partial class InitialCreate
     {
         /// <inheritdoc />
@@ -53,16 +53,11 @@ namespace Data.Migrations
                         .IsRequired()
                         .HasColumnType("nvarchar(max)");
 
-                    b.Property<int?>("UserEntityId")
-                        .HasColumnType("int");
-
                     b.HasKey("Id");
 
                     b.HasIndex("ReceiverID");
 
                     b.HasIndex("SenderID");
-
-                    b.HasIndex("UserEntityId");
 
                     b.ToTable("Transactions");
                 });
@@ -109,20 +104,16 @@ namespace Data.Migrations
             modelBuilder.Entity("Entities.TransactionEntity", b =>
                 {
                     b.HasOne("Entities.UserEntity", "ReceiverUser")
-                        .WithMany()
+                        .WithMany("ReceivedTransactions")
                         .HasForeignKey("ReceiverID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
 
                     b.HasOne("Entities.UserEntity", "SenderUser")
-                        .WithMany()
+                        .WithMany("SentTransactions")
                         .HasForeignKey("SenderID")
                         .OnDelete(DeleteBehavior.Restrict)
                         .IsRequired();
-
-                    b.HasOne("Entities.UserEntity", null)
-                        .WithMany("Transactions")
-                        .HasForeignKey("UserEntityId");
 
                     b.Navigation("ReceiverUser");
 
@@ -131,7 +122,9 @@ namespace Data.Migrations
 
             modelBuilder.Entity("Entities.UserEntity", b =>
                 {
-                    b.Navigation("Transactions");
+                    b.Navigation("ReceivedTransactions");
+
+                    b.Navigation("SentTransactions");
                 });
 #pragma warning restore 612, 618
         }
