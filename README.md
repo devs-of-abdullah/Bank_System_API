@@ -22,10 +22,10 @@
 - Blazor
 
 **What I Learned**
--Designing business rules for financial operations
--Writing clean and maintainable code
--Using EF Core effectivly
--Secured operations
+- Designing business rules for financial operations
+- Writing clean and maintainable code
+- Using EF Core effectivly
+- Secured operations
 
 **How TO Run**
 1) Clone the repository
