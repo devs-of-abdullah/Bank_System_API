@@ -1,7 +1,7 @@
 # Bank Management System #
 
 **Overview**
-- This Project is a *Bank Management System* built with ASP:NET Core following clean, layered architecture.
+- This Project is a **Bank Management System** built with ASP.NET Core following clean, layered architecture.
 - It simulates real world banking operations such as account management, transfer money between users, deposit, withdraw and many other functions.
 - The goal of this project is to demonstrate my development skills, data management, and business logic handling.
 
@@ -12,7 +12,7 @@
 - Secured Transactions and login
 - Layered architechure
 - DTO based data transfer
-- Valiations
+- Validations
 
 **Tech Stack**
 - ASP.NET Core
