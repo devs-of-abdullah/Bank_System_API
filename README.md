@@ -1,4 +1,4 @@
-***Bank Management System***
+# Bank Management System #
 
 **Overview**
 - This Project is a *Bank Management System* built with ASP:NET Core following clean, layered architecture.
