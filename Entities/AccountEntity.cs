@@ -2,7 +2,7 @@
 
 namespace Entities
 {
-    public class UserEntity
+    public class AccountEntity
     {
         public int Id { get; set; }
         public string Firstname { get; set; } = null!;

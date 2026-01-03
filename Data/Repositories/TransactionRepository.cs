@@ -10,9 +10,9 @@ namespace Data.Repositories
     public class TransactionRepository : ITransactionRepository
     {
         readonly AppDbContext _context;
-        readonly IUserRepository _repo;
+        readonly IAccountRepository _repo;
         public enum enTransactionTypes { Deposit, Transfer, Withdraw}
-        public TransactionRepository(AppDbContext context, IUserRepository repo) 
+        public TransactionRepository(AppDbContext context, IAccountRepository repo) 
         {
             _context = context;
             _repo = repo;
@@ -25,7 +25,7 @@ namespace Data.Repositories
             var CurrentUser = await _repo.GetByIdAsync(currentId);
 
             if (CurrentUser == null)
-                return new TransactionResult(false, "User not found");
+                return new TransactionResult(false, "Account not found");
 
             if (dto.Amount < 0)
                 return new TransactionResult(false, "Amount must be greater than 0");
@@ -71,7 +71,7 @@ namespace Data.Repositories
             var currentUser = await _repo.GetByIdAsync(currentId);
 
             if (currentUser == null)
-                return new TransactionResult(false, "User not found");
+                return new TransactionResult(false, "Account not found");
 
             if (dto.Amount < 0)
                 return new TransactionResult(false, "Amount must be greater than 0");
@@ -120,10 +120,10 @@ namespace Data.Repositories
             var receiverUser = await _repo.GetByIdAsync(dto.ReceiverId);
 
             if (senderUser == null)
-                return new TransactionResult(false, "Sender user not found");
+                return new TransactionResult(false, "Sender account not found");
 
             if (receiverUser == null) 
-               return new TransactionResult(false,"Receiver user not found");
+               return new TransactionResult(false,"Receiver account not found");
 
             if (dto.Amount < 0)
                 return new TransactionResult(false, "Amount must be greater than 0");

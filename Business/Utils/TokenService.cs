@@ -16,13 +16,13 @@ namespace Business
         {
             _config = config;
         }
-        public string CreateToken(UserEntity user)
+        public string CreateToken(AccountEntity account)
         {
             var Claims = new List<Claim>
             {
-                new Claim(ClaimTypes.NameIdentifier, user.Id.ToString()),
-                new Claim(ClaimTypes.Name, user.Firstname + " "+  user.Lastname),
-                new Claim(ClaimTypes.Email, user.Email),
+                new Claim(ClaimTypes.NameIdentifier, account.Id.ToString()),
+                new Claim(ClaimTypes.Name, account.Firstname + " "+  account.Lastname),
+                new Claim(ClaimTypes.Email, account.Email),
 
 
             };

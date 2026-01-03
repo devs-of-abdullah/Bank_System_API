@@ -8,11 +8,11 @@ namespace API
 {
     [ApiController]
     [Route("api/[controller]")]
-    public class UserController : ControllerBase
+    public class AccountController : ControllerBase
     {
-        readonly IUserService _userService;
+        readonly IAccountService _userService;
 
-        public UserController(IUserService userService)
+        public AccountController(IAccountService userService)
         {
             _userService = userService;
         }
@@ -21,11 +21,11 @@ namespace API
         public async Task<IActionResult> Register([FromBody] RegisterUserDto dto)
         {
             int Id = await _userService.RegisterAsync(dto);
-            return StatusCode(201, $"User registered succesfully with id: {Id}");
+            return StatusCode(201, $"Account registered succesfully with id: {Id}");
         }
 
         [HttpPost("login")]
-        public async Task<IActionResult> Login([FromBody] LoginUserDto dto)
+        public async Task<IActionResult> Login([FromBody] LoginAccountDto dto)
         {
 
             var token = await _userService.LoginAsync(dto);
@@ -73,7 +73,7 @@ namespace API
 
         [Authorize]
         [HttpPut("{id:int}")]
-        public async Task<IActionResult> Update(int id, [FromBody] UpdateUserDto dto)
+        public async Task<IActionResult> Update(int id, [FromBody] UpdateAccountDto dto)
         {
             await _userService.UpdateAsync(id, dto);
             return NoContent();

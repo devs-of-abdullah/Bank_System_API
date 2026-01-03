@@ -22,7 +22,7 @@ namespace API.Controllers
         [HttpPost("transfer")]
         public async Task<IActionResult> Transfer([FromBody] CreateTransferDTO dto)
         {
-            int currentId = User.GetCurrentUserId();
+            int currentId = User.GetCurrentAccountId();
             
             TransactionResult result = await _service.TransferAsync(currentId,dto);
 
@@ -34,7 +34,7 @@ namespace API.Controllers
         [HttpPost("deposit")]
         public async Task<IActionResult> Deposit([FromBody] CreateDepositDTO dto)
         {
-            int currentId = User.GetCurrentUserId();
+            int currentId = User.GetCurrentAccountId();
 
             TransactionResult result = await _service.DepositAsync(currentId,dto);
 
@@ -45,7 +45,7 @@ namespace API.Controllers
         [HttpPost("withdraw")]
         public async Task<IActionResult> Withdraw([FromBody] CreateWithdrawDTO dto)
         {
-            int currentId = User.GetCurrentUserId();
+            int currentId = User.GetCurrentAccountId();
 
             TransactionResult result = await _service.WithdrawAsync(currentId, dto);
 

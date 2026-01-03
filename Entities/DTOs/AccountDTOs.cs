@@ -1,7 +1,7 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace Entities.DTOs
-{   public class LoginUserDto
+{   public class LoginAccountDto
     {
         [Required, EmailAddress]
         public string Email { get; set; } = null!;
@@ -9,7 +9,7 @@ namespace Entities.DTOs
         [Required, MinLength(6)]
         public string Password { get; set; } = null!;
     }
-    public class UserDto
+    public class AccountDto
     {
         public int Id { get; set; }
         public string FirstName { get; set; } = null!;
@@ -18,7 +18,7 @@ namespace Entities.DTOs
         public string Email { get; set; } = null!;
         public DateTime CreatedAt { get; set; }
     }
-    public class UpdateUserDto
+    public class UpdateAccountDto
     {
 
         public string FirstName { get; set; } = null!;

@@ -4,15 +4,15 @@ using Microsoft.EntityFrameworkCore;
 
 namespace Data
 {
-    public class UserRepository : IUserRepository
+    public class AccountRepository : IAccountRepository
     {
         readonly AppDbContext _context;
-        public UserRepository(AppDbContext context) => _context = context;
-        public async Task<UserEntity?> GetByEmailAsync(string email)
+        public AccountRepository(AppDbContext context) => _context = context;
+        public async Task<AccountEntity?> GetByEmailAsync(string email)
         {
             return await _context.Users.FirstOrDefaultAsync(u => u.Email == email);
         }
-        public async Task<UserEntity?> GetByIdAsync(int id)
+        public async Task<AccountEntity?> GetByIdAsync(int id)
         {
             return await _context.Users.FindAsync(id);
         }
@@ -21,13 +21,13 @@ namespace Data
             return await _context.Users.AnyAsync(u => u.Email == email);
 
         }
-        public async Task<int> AddAsync(UserEntity user)
+        public async Task<int> AddAsync(AccountEntity user)
         {
             _context.Users.Add(user);
             await _context.SaveChangesAsync();
             return user.Id;
         }
-        public async Task UpdateAsync(UserEntity user) 
+        public async Task UpdateAsync(AccountEntity user) 
         {
             _context.Users.Update(user);
             await _context.SaveChangesAsync();
@@ -41,7 +41,7 @@ namespace Data
             await _context.SaveChangesAsync();
            
         }
-        public async Task<List<UserEntity>> GetAllAsync()
+        public async Task<List<AccountEntity>> GetAllAsync()
         {
             return await _context.Users.ToListAsync();
         }

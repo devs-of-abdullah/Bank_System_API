@@ -4,11 +4,11 @@ using Data.Interfaces;
 using Entities.DTOs;
 namespace Business
 {
-    public class UserService : IUserService
+    public class AccountService : IAccountService
     {
-        readonly IUserRepository _repo;
+        readonly IAccountRepository _repo;
         readonly TokenService _tokenService;
-        public UserService(IUserRepository repo, TokenService token)
+        public AccountService(IAccountRepository repo, TokenService token)
         {
             _repo = repo;
             _tokenService = token;
@@ -20,7 +20,7 @@ namespace Business
                 throw new InvalidOperationException($"'{userDto.Email}' email already exists");
 
 
-            var user = new UserEntity
+            var user = new AccountEntity
             {
                 Firstname = userDto.FirstName,
                 Lastname = userDto.LastName,
@@ -33,7 +33,7 @@ namespace Business
 
         }
 
-        public async Task<string> LoginAsync(LoginUserDto userDto)
+        public async Task<string> LoginAsync(LoginAccountDto userDto)
         {
             var user = await _repo.GetByEmailAsync(userDto.Email)
                 ?? throw new UnauthorizedAccessException($"{userDto.Email} is not exists");
@@ -45,35 +45,35 @@ namespace Business
 
         }
 
-        public async Task<List<UserDto>> GetAllAsync()
+        public async Task<List<AccountDto>> GetAllAsync()
         {
             var users = await _repo.GetAllAsync();
 
-            return users.Select(u => new UserDto
+            return users.Select(u => new AccountDto
             {
                 Id = u.Id,
                 Email = u.Email,
             }).ToList();
         } 
 
-        public async Task<UserDto?> GetByIdAsync(int id)
+        public async Task<AccountDto?> GetByIdAsync(int id)
         {
             var user = await _repo.GetByIdAsync(id);
             if (user == null) return null;
 
            
-            return new UserDto
+            return new AccountDto
             {
                 Id=user.Id,
                 Email = user.Email,
             };
         }
-        public async Task<UserDto?> GetByEmailAsync(string email)
+        public async Task<AccountDto?> GetByEmailAsync(string email)
         {
             var user = await _repo.GetByEmailAsync(email);
             if(user == null) return null;
 
-            return new UserDto
+            return new AccountDto
             {
                 Id= user.Id,
                 Email = user.Email,
@@ -83,7 +83,7 @@ namespace Business
         {
           await  _repo.DeleteAsync(Id);
         }
-        public async Task UpdateAsync(int Id, UpdateUserDto dto)
+        public async Task UpdateAsync(int Id, UpdateAccountDto dto)
         {
             var user = await _repo.GetByIdAsync(Id) 
                 ?? throw new KeyNotFoundException("User not found");

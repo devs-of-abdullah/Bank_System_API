@@ -4,12 +4,12 @@ namespace API
 {
     public static class Extensions
     {
-        public static int GetCurrentUserId(this ClaimsPrincipal user)
+        public static int GetCurrentAccountId(this ClaimsPrincipal account)
         {
-            var claim = user.FindFirst(ClaimTypes.NameIdentifier);
+            var claim = account.FindFirst(ClaimTypes.NameIdentifier);
 
             if (claim == null)
-                throw new UnauthorizedAccessException("Current user not found");
+                throw new UnauthorizedAccessException("Current account not found");
 
             return int.Parse(claim.Value);
         }

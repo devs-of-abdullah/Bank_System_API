@@ -8,12 +8,12 @@ namespace Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         public DbSet<TransactionEntity> Transactions { get; set; }
-        public DbSet<UserEntity> Users { get; set; }
+        public DbSet<AccountEntity> Users { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<UserEntity>(entity =>
+            modelBuilder.Entity<AccountEntity>(entity =>
             {
                 entity.HasKey(u => u.Id);
 
