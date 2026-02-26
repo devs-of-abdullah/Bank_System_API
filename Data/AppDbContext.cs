@@ -8,35 +8,61 @@ namespace Data
         public AppDbContext(DbContextOptions<AppDbContext> options) : base(options) { }
 
         public DbSet<TransactionEntity> Transactions { get; set; }
-        public DbSet<AccountEntity> Users { get; set; }
+        public DbSet<UserEntity> Users { get; set; }
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
 
-            modelBuilder.Entity<AccountEntity>(entity =>
+            modelBuilder.Entity<UserEntity>(entity =>
             {
-                entity.HasKey(u => u.Id);
+                modelBuilder.Entity<UserEntity>(entity =>
+                {
+                    entity.HasKey(u => u.Id);
 
-                entity.Property(u => u.Email).IsRequired().HasMaxLength(128);
+                    entity.Property(u => u.Email)
+                          .IsRequired()
+                          .HasMaxLength(256);
 
-                entity.HasIndex(u => u.Email).IsUnique();
+                    entity.HasIndex(u => u.Email)
+                          .IsUnique();
 
-                entity.Property(u => u.Balance).HasColumnType("decimal(18,2)");
+                    entity.Property(u => u.PasswordHash)
+                          .IsRequired();
 
-            });
-            modelBuilder.Entity<TransactionEntity>(entity =>
-            {
-                entity.HasKey(t => t.Id);
+                    entity.Property(u => u.Role)
+                          .IsRequired()
+                          .HasMaxLength(50);
 
-                entity.Property(t => t.Amount).HasColumnType("decimal(18,2)").IsRequired();
+                    entity.Property(u => u.CreatedAt)
+                          .HasDefaultValueSql("GETUTCDATE()");
 
-                entity.HasOne(t => t.SenderUser).WithMany(u => u.SentTransactions).HasForeignKey(t => t.SenderID).OnDelete(DeleteBehavior.Restrict);
+                    entity.HasIndex(u => u.RefreshTokenHash)
+                          .IsUnique()
+                          .HasFilter("[RefreshTokenHash] IS NOT NULL");
 
-                entity.HasOne(t => t.ReceiverUser).WithMany(u => u.ReceivedTransactions).HasForeignKey(t => t.ReceiverID).OnDelete(DeleteBehavior.Restrict);
+                    entity.Property(u => u.RefreshTokenExpiresAt);
 
-            });
-            
 
+                    entity.HasIndex(u => u.RefreshTokenHash)
+                          .IsUnique();
+
+                    entity.HasQueryFilter(u => !u.IsDeleted);
+                });
+
+                modelBuilder.Entity<TransactionEntity>(entity =>
+                {
+                    entity.HasKey(t => t.Id);
+
+                    entity.Property(t => t.Amount).HasColumnType("decimal(18,2)").IsRequired();
+
+                    entity.HasOne(t => t.SenderUser).WithMany(u => u.SentTransactions).HasForeignKey(t => t.SenderID).OnDelete(DeleteBehavior.Restrict);
+
+                    entity.HasOne(t => t.ReceiverUser).WithMany(u => u.ReceivedTransactions).HasForeignKey(t => t.ReceiverID).OnDelete(DeleteBehavior.Restrict);
+
+                });
+
+
+            }); 
         }
       
     }

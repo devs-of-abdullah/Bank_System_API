@@ -1,12 +1,8 @@
 ﻿using Business.Interfaces;
-using Entities;
-using Entities.DTOs;
+using DTOs;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
-using System.Security.Claims;
 
-namespace API.Controllers
-{
     [ApiController]
     [Route("api/[controller]")]
     public class TransactionController : ControllerBase
@@ -22,39 +18,21 @@ namespace API.Controllers
         [HttpPost("transfer")]
         public async Task<IActionResult> Transfer([FromBody] CreateTransferDTO dto)
         {
-            int currentId = User.GetCurrentAccountId();
-            
-            TransactionResult result = await _service.TransferAsync(currentId,dto);
 
-            return result.IsSuccess ? Ok(result) : BadRequest(result);
-
+            return Ok();
         }
 
         [Authorize]
         [HttpPost("deposit")]
         public async Task<IActionResult> Deposit([FromBody] CreateDepositDTO dto)
         {
-            int currentId = User.GetCurrentAccountId();
-
-            TransactionResult result = await _service.DepositAsync(currentId,dto);
-
-            return result.IsSuccess ? Ok(result) : BadRequest(result);
+            return Ok();
         }
 
         [Authorize]
         [HttpPost("withdraw")]
         public async Task<IActionResult> Withdraw([FromBody] CreateWithdrawDTO dto)
         {
-            int currentId = User.GetCurrentAccountId();
-
-            TransactionResult result = await _service.WithdrawAsync(currentId, dto);
-
-            return result.IsSuccess ? Ok(result) : BadRequest(result);
-
-
+            return Ok();
         }
-
-
-
     }
-}

@@ -1,7 +1,5 @@
 ﻿
-using Entities;
-using Entities.DTOs;
-
+using DTOs;
 namespace Data.Interfaces
 {
     public interface ITransactionRepository

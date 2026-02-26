@@ -9,14 +9,14 @@ using System.Text;
 
 namespace Business
 {
-    public class TokenService
+    public class TokenServices
     {
         readonly IConfiguration _config;
-        public TokenService(IConfiguration config)
+        public TokenServices(IConfiguration config)
         {
             _config = config;
         }
-        public string CreateToken(AccountEntity account)
+        public string CreateToken(UserEntity account)
         {
             var Claims = new List<Claim>
             {

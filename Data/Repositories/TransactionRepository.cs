@@ -1,18 +1,16 @@
 ﻿
 using Data.Interfaces;
 using Entities;
-using Entities.DTOs;
-using System.Runtime.CompilerServices;
-using System.Security.Claims;
+using DTOs;
 
 namespace Data.Repositories
 {
     public class TransactionRepository : ITransactionRepository
     {
         readonly AppDbContext _context;
-        readonly IAccountRepository _repo;
+        readonly IUserRepository _repo;
         public enum enTransactionTypes { Deposit, Transfer, Withdraw}
-        public TransactionRepository(AppDbContext context, IAccountRepository repo) 
+        public TransactionRepository(AppDbContext context, IUserRepository repo) 
         {
             _context = context;
             _repo = repo;

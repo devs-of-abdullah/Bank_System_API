@@ -1,6 +1,4 @@
-﻿using Entities;
-using Entities.DTOs;
-
+﻿using DTOs;
 namespace Business.Interfaces
 {
     public interface ITransactionService

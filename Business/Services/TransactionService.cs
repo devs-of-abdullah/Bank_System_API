@@ -2,8 +2,7 @@
 
 using Business.Interfaces;
 using Data.Interfaces;
-using Entities;
-using Entities.DTOs;
+using DTOs;
 
 namespace Business.Services
 {
