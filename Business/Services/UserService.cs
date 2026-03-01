@@ -2,17 +2,14 @@
 using Data.Interfaces;
 using DTOs;
 using Entities;
-using Microsoft.EntityFrameworkCore;
 namespace Business
 {
     public class UserService : IUserService
     {
         readonly IUserRepository _repo;
-        readonly TokenServices _tokenService;
-        public UserService(IUserRepository repo, TokenServices token)
+        public UserService(IUserRepository repo)
         {
             _repo = repo;
-            _tokenService = token;
         }
         public async Task<int> CreateAsync(CreateUserDTO dto)
         {
@@ -22,8 +19,9 @@ namespace Business
 
             var user = new UserEntity
             {
+                Firstname = dto.FirstName,
+                Lastname = dto.LastName,
                 Email = dto.Email,
-                Role = dto.Role,
                 PasswordHash = BCrypt.Net.BCrypt.HashPassword(dto.Password)
             };
 
@@ -40,7 +38,6 @@ namespace Business
             return new ReadUserDTO
             {
                 Id = user.Id,
-                Role = user.Role,
                 Email = user.Email,
             };
         }
@@ -53,7 +50,6 @@ namespace Business
             {
                 Id = user.Id,
                 Email = user.Email,
-                Role = user.Role,
                 CreatedAt = user.CreatedAt,
                 UpdatedAt = user.UpdatedAt,
             };
@@ -97,18 +93,7 @@ namespace Business
 
             await _repo.UpdateAsync(user);
         }
-        public async Task UpdateRoleAsync(int id, UpdateUserRoleDTO dto)
-        {
-
-            var user = await _repo.GetByIdAsync(id);
-
-            if (user == null)
-                throw new KeyNotFoundException("User not found");
-
-            user.Role = dto.NewRole;
-            await _repo.UpdateAsync(user);
-
-        }
+        
         public async Task UpdateEmailAsync(int userId, UpdateUserEmailDTO dto)
         {
             if (string.IsNullOrWhiteSpace(dto.NewEmail))
@@ -142,7 +127,19 @@ namespace Business
         }
 
 
+        public async Task AdminSoftDeleteAsync(int id)
+        {
+            var user = await _repo.GetByIdAsync(id)
+                ?? throw new KeyNotFoundException("User not found");
 
+            if (user.IsDeleted)
+                throw new InvalidOperationException("User already deleted");
+
+            user.IsDeleted = true;
+            user.UpdatedAt = DateTime.UtcNow;
+
+            await _repo.UpdateAsync(user);
+        }
 
 
         public async Task<List<ReadUserDTO>> GetAllAsync()

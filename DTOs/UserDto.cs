@@ -9,7 +9,6 @@ namespace DTOs
         public decimal Balance { get; set; }
         public string LastName { get; set; } = null!;
         public string Email { get; set; } = null!;
-        public string Role { get; init; } = null!; // costumer , admin , superAdmin
         public DateTime? UpdatedAt { get; init; }
         public DateTime CreatedAt { get; set; }
     }
@@ -21,11 +20,6 @@ namespace DTOs
         [Required, MaxLength(20)]
         public string LastName { get; set; } = null!;
 
-    }
-    public record UpdateUserRoleDTO
-    {
-        [Required, MaxLength(10)]
-        public string NewRole { get; init; } = null!;
     }
     public record UpdateUserPasswordDTO
     {
@@ -43,9 +37,11 @@ namespace DTOs
         [Required, MinLength(6)]
         public string CurrentPassword { get; init; } = null!;
     }
-    public class CreateUserDTO
+    public record CreateUserDTO
     {
+        [Required,MaxLength(16)]
         public string FirstName { get; set; } = null!;
+        [Required, MaxLength(16)]
         public string LastName { get; set; } = null!;
 
         [Required, EmailAddress, MaxLength(256)]
@@ -54,7 +50,6 @@ namespace DTOs
         [Required, MinLength(6)]
         public string Password { get; set; } = null!;
 
-        public string Role { get; init; } = null!;
     }
     public record SoftUserDeleteDTO
     {

@@ -9,9 +9,9 @@ namespace Business.Interfaces
         Task<ReadUserDTO?> GetByEmailAsync(string email);
         Task<List<ReadUserDTO>> GetAllAsync();
         Task SoftDeleteAsync(int id, SoftUserDeleteDTO dto);
+        Task AdminSoftDeleteAsync(int id);
 
         Task UpdatePasswordAsync(int id, UpdateUserPasswordDTO dto);
-        Task UpdateRoleAsync(int id, UpdateUserRoleDTO dto);
         Task UpdateEmailAsync(int id, UpdateUserEmailDTO dto);
     }
 }

@@ -20,12 +20,13 @@ public static class ServiceExtensions
         services.AddDbContext<AppDbContext>(options =>
             options.UseSqlServer(connectionString, b => b.MigrationsAssembly("Data")));
 
+        services.AddScoped<IUserRepository, UserRepository>();
         services.AddScoped<IUserService, UserService>();
         services.AddScoped<IAuthService, AuthService>();
         services.AddScoped<ITokenService,TokenService>();
         services.AddScoped<ITransactionService, TransactionService>();
-        services.AddScoped<ITransactionRepository,ITransactionRepository>();
-        services.AddScoped<IUserRepository, UserRepository>();
+        services.AddScoped<ITransactionRepository,TransactionRepository>();
+    
 
 
         services.AddControllers()

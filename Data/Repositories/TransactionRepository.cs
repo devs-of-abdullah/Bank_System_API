@@ -3,7 +3,7 @@ using Data.Interfaces;
 using Entities;
 using DTOs;
 
-namespace Data.Repositories
+namespace Data
 {
     public class TransactionRepository : ITransactionRepository
     {
