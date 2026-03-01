@@ -1,11 +1,14 @@
-﻿
-using DTOs;
+﻿using DTOs;
+using Entities;
+using Microsoft.EntityFrameworkCore.Storage;
+
 namespace Data.Interfaces
 {
     public interface ITransactionRepository
     {
-        Task<TransactionResult> DepositAsync(int currentId,CreateDepositDTO dto);
-        Task<TransactionResult> WithdrawAsync(int currentId,CreateWithdrawDTO dto);
-        Task<TransactionResult> TransferAsync(int currentId,CreateTransferDTO dto);
+        Task<UserEntity?> GetUserByIdAsync(int id);
+        Task AddTransactionAsync(TransactionEntity entity);
+        Task SaveChangesAsync();
+        Task<IDbContextTransaction> BeginTransactionAsync();
     }
 }

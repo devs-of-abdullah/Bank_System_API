@@ -1,22 +1,36 @@
 ﻿
+using System.ComponentModel.DataAnnotations;
+
 namespace DTOs
 {
-    public class CreateTransferDTO
-    {
-        public int ReceiverId {  get; set; }
-        public decimal Amount {  get; set; }
-        public string Description {  get; set; } = string.Empty;
-    }
-    public class CreateDepositDTO
-    {
-        public decimal Amount { get; set; } 
-        public string Description { get; set; } = string.Empty;
-    }
-    public class CreateWithdrawDTO
-    {
-        public decimal Amount { get; set; }
-        public string Description { get; set; } = string.Empty;
-    }
+    public record CreateWithdrawDTO(
+
+          [Range(0.01, 100, ErrorMessage = "Amount must be between 0.01 and 100")]
+           decimal Amount,
+
+          [MaxLength(256)] 
+          string Description = ""
+      );
+
+    public record CreateTransferDTO(
+        [Required]
+        int ReceiverId,
+
+        [Range(0.01, 100, ErrorMessage = "Amount must be between 0.01 and 100")]
+        decimal Amount,
+
+        [MaxLength(256)]
+        string Description = ""
+    );
+    public record CreateDepositDTO(
+
+           [Range(0.01, 100, ErrorMessage = "Amount must be between 0.01 and 100")]
+           decimal Amount,
+
+           [MaxLength(256)] 
+           string Description = ""
+       );
+ 
     public record TransactionResult(bool IsSuccess, string Message);
 
 }
