@@ -19,16 +19,18 @@
 - Entity Framework Core 
 - C#
 - Clean architechure principles
+ Secured operations
 
-**What I Learned**
-- Designing business rules for financial operations
-- Writing clean and maintainable code
-- Using EF Core effectivly
-- Secured operations
+## EF Core Commands
 
-**How TO Run**
-1) Clone the repository
-2) Configure a SQL server connection string in app.settings
-3) Run Database Migrations
-- For initial create (dotnet ef migrations add InitialCreate --project Data --startup-project API)
-- To update (dotnet ef database update --project Data --startup-project API)
+# Add a new migration
+dotnet ef migrations add InitialCreate --project Data --startup-project API
+
+# Apply migrations to the database
+dotnet ef database update --project Data --startup-project API
+
+# Remove the last migration
+dotnet ef migrations remove --project Data --startup-project API
+
+# Drop the entire database
+dotnet ef database drop --project Data --startup-project API
